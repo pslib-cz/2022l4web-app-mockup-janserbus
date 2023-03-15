@@ -4,9 +4,6 @@ Hráč bude spravovat vesnici, rozrůstat jí, zbýrat nové suroviny a bojjovat
 - dřevo
 - kámen
 - potraviny
-
-##Budovy
-
+## Budovy
 ## Růst
-
 ## Souboj
