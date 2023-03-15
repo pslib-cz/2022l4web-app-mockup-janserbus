@@ -5,8 +5,14 @@ Aplikace bude používána k sledování a zaznamenávání cílů a návyků
 - vytvoření a zadání cíle nebo návyku
 	- cíle:
 		- možnost krátkého popisu
-		- určení dedline
-  		- určení každodenního návyku, kretý povede k naplnění cíle
-  		- sledování progresu   
+		- určení deadline
+  		- možnost určení konkrétních návyků,které povedou k naplnění cíle
+  		- sledování progressu
 - vkládání postupu
 - tisknutí na papír
+
+## Cíle
+
+## Ukládání postupu a statistika
+
+## Možnost vytisknutí
