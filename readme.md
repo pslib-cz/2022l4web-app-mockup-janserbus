@@ -4,7 +4,7 @@ Hráč bude spravovat vesnici, rozrůstat jí, sbýrat nové suroviny a bojovat 
 ## Suroviny
 Speciální mechanika regulující jejich dostupnost
 ### Dřevo
-  Časem se obnovuje, je možné přistavět *lesníka*, který zrychlí generování dřevěné suroviny
+  Časem se obnovuje, je možné přistavět **lesníka**, který zrychlí generování dřevěné suroviny
 ### Kámen
 ### Populace
 ### Potraviny
