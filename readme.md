@@ -19,8 +19,6 @@ Základní suroviny které je možné využívat
 
 Každá jednotka pracovní síly konzumuje 0.05 potraviny/s
 
-Populace bude nezávisle růst
-
 Růst populace bude modelován pomocí nasledující rovnice: $P = P_0*e^{rt}$
 
 ## Suroviny
