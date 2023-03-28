@@ -119,9 +119,9 @@ int initializerenderInfo(renderInfo *gameRend){
         return 1;
     }
 
-    gameRend->textFont = TTF_OpenFont("fonts/Roboto-Regular.ttf", 1000);
+    gameRend->textFont = TTF_OpenFont("fonts/Roboto.ttf", FONT_SIZE);
     if(!gameRend->textFont){
-        printf("Error initializing font: %s", TTF_GetError());
+        printf("Error initializing font: %s\n", TTF_GetError());
         SDL_DestroyRenderer(gameRend->rend);
         SDL_DestroyWindow(gameRend->win);
         TTF_Quit();

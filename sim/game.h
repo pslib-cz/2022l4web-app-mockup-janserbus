@@ -8,8 +8,10 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 780
 
-#define MAIN_PADDING 30
-#define INFOBAR_WIDTH 200
+#define FONT_SIZE 22
+
+#define SCREEN_PADDING 30
+#define LINE_HEIGHT 20
 
 typedef struct{
     double deltaTime;
