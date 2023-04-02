@@ -1,7 +1,5 @@
 demo
 sdl_seminar
 .vscode
-sim/.vscode
-sim/err
-sim/population
-sim/memerr.c
+sim/test
+sim/population.code-workspace

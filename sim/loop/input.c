@@ -1,16 +1,15 @@
 #include <SDL2/SDL.h>
-#include <stdio.h>
 
-#include "game.h"
+#include "../game/data.h"
 
-int Input(gameTime *gameTime, gameInfo *gameInfo)
+int Input()
 {
     SDL_Event event;
     while(SDL_PollEvent(&event))
     {
         if(event.type == SDL_QUIT)
         {
-            gameInfo->running = false;
+            Game.running = false;
         }
     }
     
