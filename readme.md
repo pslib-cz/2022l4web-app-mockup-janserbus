@@ -9,7 +9,7 @@ Hra začíná se 12 lidmi a s 250 jednotkami potravin. Hráč bude přiřazovat 
 ## Globální proměnné
 
 1. rok = 40s - doporučené nastavení
-2. populačníRůst = 0.05
+2. populačníRůst = 0.05%/rok
 
 ## Zdroje
 
