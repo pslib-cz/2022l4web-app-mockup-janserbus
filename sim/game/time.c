@@ -2,12 +2,12 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "time.h"
 #include "data.h"
 
 Timer Timer_frec10;
-
 
 //Timer functions
 int Init_Timer(Timer *timer, int frequency){
@@ -33,7 +33,8 @@ void updateTimer(Timer *timer){
     long fire = timespecToInt_Milsec(timer->nextFire);
     long duration = timespecToInt_Milsec(Game.duration);
 
-    if( fire <= duration){
+    if(fire <= duration)
+    {
         timer->fire = true;
         timer->nextFire = timespecAdd(Game.duration, timer->waitTime);
     }
@@ -46,7 +47,6 @@ double deltaTime(timespec s, timespec e)
     return timespecToDouble(timespecDiff(e, s));
 }
 
-
 //timespec arithmetics
 timespec timespecDiff(timespec a, timespec b){
 
@@ -55,14 +55,16 @@ timespec timespecDiff(timespec a, timespec b){
     long nsec_diference = a.tv_nsec - b.tv_nsec;
     long sec_diference = a.tv_sec - b.tv_sec;
 
-    if((nsec_diference < 0 && sec_diference >= 0) || (nsec_diference >= 0 && sec_diference < 0)){
+    if((nsec_diference < 0 && sec_diference >= 0) || (nsec_diference >= 0 && sec_diference < 0))
+    {
         temp.tv_sec = abs(sec_diference) - 1;
         temp.tv_nsec = 1000000000 - abs(nsec_diference);
-        return temp;
     }
-
-    temp.tv_sec = abs(sec_diference);
-    temp.tv_nsec = abs(nsec_diference);
+    else
+    {
+        temp.tv_sec = abs(sec_diference);
+        temp.tv_nsec = abs(nsec_diference);
+    }
 
     return temp;
 }
@@ -96,4 +98,11 @@ int timespecToInt_Milsec(timespec time)
 double timespecToDouble(timespec time)
 {
     return (time.tv_sec * 1000000000 + time.tv_nsec) / 1000000000.0;
+}
+void doubleToTimespec(timespec *location, double source){
+
+    location->tv_sec = (int) source;
+    location->tv_nsec= round((source - location->tv_sec) * 1000) * 1000000;
+
+    return;
 }

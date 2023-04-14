@@ -41,7 +41,6 @@ $r =r×h$
 - pro $h_a=<0;20>$ se $h=-1;0>$
 - pro $h_a=<20;80$ se $h=(0,1>$
 
-
 ### Třída jedinec
 
 - __Happiness__ - hodnota mezi 0 - 100 určuje jak moc je jedinec šťastný

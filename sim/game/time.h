@@ -17,6 +17,8 @@ timespec timespecDiff(timespec a, timespec b);
 int timespecToInt_Sec(timespec time);
 int timespecToInt_Milsec(timespec time);
 double timespecToDouble(timespec time);
+void doubleToTimespec(timespec *location, double source);
+
 
 double deltaTime(timespec s, timespec e);
 

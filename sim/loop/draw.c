@@ -25,18 +25,17 @@ int Draw(){
     sprintf(buffer, "years: %i", (int) timespecToInt_Sec(Game.duration));
     RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(2));
 
-    sprintf(buffer, "delta: %f", Game.deltaDuration);
+    sprintf(buffer, "growth1: %f", Population1.growth);
     RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(3));
 
-    if(Timer_frec10.fire){
-        RenderText(Game.renderer, "timer", Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(4));
-    }
+    sprintf(buffer, "growth2: %f", Population2.growth);
+    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorRed, SCREEN_PADDING, row(4));
 
     free(buffer);
 
     RenderGraph(Game.renderer, MainGraph, Game.colorWite);
 
-    RenderGraphData(Game.renderer, MainGraph, Data1, Game.colorWite);
+    RenderGraphData(Game.renderer, MainGraph, Data1, Game.colorWite);    
     RenderGraphData(Game.renderer, MainGraph, Data2, Game.colorRed);
 
     SDL_RenderPresent(Game.renderer);
@@ -59,12 +58,12 @@ int RenderText(SDL_Renderer *rend, char *label, TTF_Font *font, SDL_Color color,
         return 1;
     }
 
-    SDL_FreeSurface(surf);
-
     SDL_Rect posInfo = {xPos, yPos, surf->w, surf->h};
 
     posInfo.w = posInfo.w * FONT_SIZE / posInfo.h;
-    posInfo.h = FONT_SIZE;   
+    posInfo.h = FONT_SIZE;
+
+    SDL_FreeSurface(surf);
 
     SDL_RenderCopy(Game.renderer, tex, NULL, &posInfo);
 
@@ -74,10 +73,6 @@ int RenderText(SDL_Renderer *rend, char *label, TTF_Font *font, SDL_Color color,
 }
 
 int row(int rowNumber){
-    if (rowNumber == 0)
-    {
-        return SCREEN_PADDING;
-    }    
 
     return SCREEN_PADDING + LINE_HEIGHT * rowNumber + FONT_SIZE * rowNumber;    
 }

@@ -79,7 +79,7 @@ void Init_Graph(Graph *graph, int size, int posX, int posY, float scaleX, float 
     return;
 }
 
-void addDataPoint(GraphData *data, double pointX, double pointY){
+void addDataPoint(GraphData *data, float pointX, float pointY){
 
     if(data->points == NULL)
     {
@@ -126,19 +126,11 @@ void RenderGraphData(SDL_Renderer *rend, Graph graph, GraphData data, SDL_Color 
     }
 
     //apply ofset and scale to data    
-
     for(int i = 0; i < data.size; i++)
     {
         arr[i].x = arr[i].x * graph.scaleX + graph.position.x;
         arr[i].y = -arr[i].y * graph.scaleY + graph.position.y + graph.position.h;
     }
-
-    // SDL_Point arr[2];
-    // arr[0].x = graph.position.x;
-    // arr[0].y = graph.position.y + graph.position.h;
-    // arr[1].x = graph.position.x + 500;
-    // arr[1].y = graph.position.y + graph.position.h - 500;
-
 
     SDL_SetRenderDrawColor(rend, color.r, color.g, color.b, color.a);
 

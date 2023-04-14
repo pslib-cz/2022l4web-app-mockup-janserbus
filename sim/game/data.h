@@ -6,7 +6,7 @@
 
 #include "time.h"
 
-#define FRAME_CAP 60.0
+#define FRAME_CAP 10.0
 
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 780
@@ -56,7 +56,7 @@ int Init_GameData();
 void Init_Population(Population *population, char name[], int size, double growth);
 void Init_Graph(Graph *graph, int size, int posX, int posY, float scaleX, float scaleY);
 
-void addDataPoint(GraphData *data, double pointX, double pointY);
+void addDataPoint(GraphData *data, float pointX, float pointY);
 void RenderGraph(SDL_Renderer *rend, Graph graph, SDL_Color color);
 void RenderGraphData(SDL_Renderer *rend, Graph graph, GraphData data, SDL_Color color);
 
