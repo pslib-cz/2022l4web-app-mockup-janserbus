@@ -112,14 +112,14 @@ Budov je možné postavit  neomezené množství.
 
 | Typ budovy | Efekt | Cena |
 | --- | --- | --- |
-| Sklad | zvýší kapacitu surovin o její počáteční hodnotu | |
-| Dům | +4 místa na __Bydlení__ | |
-| Nástrojářská chatka | +1 práce __Nástrojář__ |
-| Dřevorubecká chata | +2 práce __Dřevorubec__ |
-| Kamenolom | +2 práce __Kamenolomec__ |
-| Lovecká chata | +3 práce __Lovec__ |
-| Kamenická dílna | +2 práce __Kameník__ |
-| Dřevařská dílna | +3 práce __Tesař__ |
-| Farma | +6 práce __Farmář__ |
-| Mlýn | +3 práce __Mlynář__ |
-| Pekárna | +2 práce __Pekař__ |
+| Sklad | zvýší kapacitu surovin o její počáteční hodnotu | 50 __Dřeva__ 50 __Kamení__ |
+| Dům | +4 místa na __Bydlení__ | 5 __Dřevo__ 1 __Kámnen__ |
+| Nástrojářská chatka | +1 práce __Nástrojář__ | 10 __Dřeva__ 10 __Kamení__ |
+| Dřevorubecká chata | +2 práce __Dřevorubec__ | 10 __Dřeva__ 4 __Kamení__ 1 __Nástroj__ |
+| Kamenolom | +2 práce __Kamenolomec__ | 10 __Dřeva__ 10 __Kamení__ 3 __Nástroje__ |
+| Lovecká chata | +3 práce __Lovec__ | 25 __Dřeva__ 10 4 __Kamení__ 3 __Nástroje__ |
+| Kamenická dílna | +2 práce __Kameník__ | 20 __Dřeva__ 20 __Kamení__ 8 __Nástrojů__ |
+| Dřevařská dílna | +3 práce __Tesař__ | 30 __Dřeva__ 10 __Kamení__ 8 __Nástrojů__
+| Farma | +6 práce __Farmář__ | 2 __Kamených cihel__ 5 __Paněk__ |
+| Mlýn | +3 práce __Mlynář__ | 10 __Kamených cihel__ 10 __Plaňěk__ |
+| Pekárna | +2 práce __Pekař__ | 6 __Kamených cihel__ 8 __Planěk__ |
