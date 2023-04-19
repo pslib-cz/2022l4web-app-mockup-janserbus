@@ -2,6 +2,8 @@
 
 Hráč bude spravovat vesnici, rozrůstat jí, sbýrat nové suroviny
 
+![Mockup design](/img/design.jpg)
+
 ## Začátek hry
 
 Hra začíná se 12 lidmi a s 100 jednotkami potravin. Hráč bude přiřazovat volné lidi do práce, čímž bude generovat suroviny. Ze začaáku hry se bude jednat především o jednoduché suroviny a práce. Sběrači budou produkovat malé možství jídla, což bude znamenat, že pro uživení populace bude nezbytné aby většína lidí sbírala jídlo. Zbylích pár jedniců pak bude moci sbírat dřevo nebo kamení.
