@@ -85,7 +85,7 @@ Na začátku hry jsou poskitnuty 3 základní prace:
 - __Sběrač Dřeva__
 - __Sběrač Kamení__
 
-Tyto práce nevyžadují žádnou vstupní surovinu a počet pracovníků není oezen.
+Tyto práce nevyžadují žádnou vstupní surovinu a počet pracovníků není omezen.
 
 ### Přehled prací
 
