@@ -47,7 +47,6 @@ $r =r_0×h$
 
 __Štěstí__ bude ovlivněno __Hladem__, __Prací__ a __Ubytováním__. Pokud hlad klesne pod 70% stěstí začne klesat. Na 20% se spustí hladovění.
 
-
 ## Suroviny
 
 1. Základní:
@@ -98,16 +97,16 @@ Tyto práce nevyžadují žádnou vstupní surovinu a počet pracovníků není 
 | Nástrojář | 0.01 __Nástrojů__ | 0.08 __Dřeva__ 0.04 __Kamení__ | Jednoduchá výroba nástrojů |
 | Dřevorubec | 0.2 __Dřeva__ | 0.05 __Nástrojů__ | Lepší produkce dřeva |
 | Kamenolomec | 0.15 __Kamení__ | 0.08 __Nástrojů__ | Lepší produkce kamení |
-| Lovec | 0.04 __Jídla__ | 0.05 Nástrojů | Lepší produkce jídla |
+| Lovec | 0.04 __Jídla__ | 0.05 __Nástrojů__ | Lepší produkce jídla |
 | Truhlář | 0.05 __Planěk__ | 0.02 __Nástrojů__ | Pokročilý materiál |
-| Kameník | 0.05 __Kamených cihel__ | 0.04 Nástrojů | Pokočilý materiál |
+| Kameník | 0.05 __Kamených cihel__ | 0.04 __Nástrojů__ | Pokočilý materiál |
 | Farmář | 0.08 __Obilí__ | 0.03 __Nástrojů__ | Pokročilá produkce jídla |
 | Mlynář | 0.3 __Mouky__ | 0.5 __Obilí__ |  Pokročilá produkce jídla |
 | Pekař | 0.25 __Jídla__ | 0.1 __Mouky__ | Pokročilá produkce jídla |
 
 ## Budovy
 
-Budov je možné postavit  neomezenémnožství.
+Budov je možné postavit  neomezené množství.
 
 ### Přehled budov
 
