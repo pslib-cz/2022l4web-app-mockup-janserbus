@@ -1,5 +1,5 @@
 demo
-sdl_seminar
 .vscode
 sim/test
 sim/population.code-workspace
+sim/*.o

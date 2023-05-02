@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 
-#include "../game/data.h"
+#include "../main.h"
+#include "../engine.h"
 
 int Input()
 {

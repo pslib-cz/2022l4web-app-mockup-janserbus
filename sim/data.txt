@@ -1,0 +1,77 @@
+
+
+
+Frame: 223
+Delta Time: 0.03
+Average hunger: 32.72
+Average happiness: 36.18
+Pop size: 11
+Pop queue size: 11
+
+---------------------------
+
+Person[0]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[1]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[2]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[3]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[4]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[5]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[6]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[7]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[8]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[9]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false
+
+Person[10]
+  happiness: 36
+     hunger: 33
+  jobStatus: employed
+    housing: false

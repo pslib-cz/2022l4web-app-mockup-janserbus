@@ -1,72 +1,105 @@
 #include <stdio.h>
 #include <math.h>
-#include <time.h>
 
-#include "../game/data.h"
-#include "../game/processes.h"
+#include "../config.h"
+#include "../main.h"
+#include "../components/population.h"
+#include "../components/resources.h"
+#include "../engine.h"
 
-#define e 2.7182818
-#define CARY_CAP 300
-#define INIT 10
-
-void growPopulation_Log(Population *population);
-void growPopulation_Exp(Population *population);
-
+void growPopulation();
+void populationEat();
 
 int Update(){
 
-    static bool fire1 = true;
-    static bool fire2 = true;
-    static bool fire3 = true;
-    static bool fire4 = true;
+    printPopulationData();
 
-    if(timespecToInt_Sec(Game.duration) > 10 && fire1)
+    updatePopulation();
+
+    createResource(food, FOOD_RATE * Game.deltaTime);
+
+    populationEat();
+
+    for(int i = 0; i < Population.size; i++)
     {
-        translate(&Population1.growth, -0.01, 20, linear);
-        fire1 = false;
-    }
-    if(timespecToInt_Sec(Game.duration) > 5 && fire2)
-    {
-        translate(&Population2.growth, 0.2, 10, linear);
-        fire2 = false;
-    }
-    if(timespecToInt_Sec(Game.duration) > 20 && fire3)
-    {
-        translate(&Population2.growth, -0.05, 20, linear);
-        fire3 = false;
-    }
-    if(timespecToInt_Sec(Game.duration) > 1 && fire4)
-    {
-        translate(&Population2.growth, -0.05, 20, smooth);
-        fire4 = false;
+        Person_update(i);
     }
 
-    growPopulation_Exp(&Population1);
-    growPopulation_Exp(&Population2);
+    growPopulation();    
 
-    if(Timer_frec10.fire){
-
-        addDataPoint(&Data1, timespecToDouble(Game.duration), Population1.size);
-        addDataPoint(&Data2, timespecToDouble(Game.duration), Population2.size);
+    if(Timer_graph.fire)
+    {
+        addDataPoint(&Data1, timespecToDouble(Game.duration), Population.state);
     }
 
     return 0;
 }
 
-//Logistic growth function
-void growPopulation_Log(Population *population){
+double growthCoefficient(void);
+void growPopulation(){
 
-    population->state = CARY_CAP / (1 + INIT * pow(e, -population->growth * (timespecToDouble(Game.duration) - 40)));
-    population->size = floor(population->state);
+    Population.growth = POP_GROWTH / YEAR_TIME * growthCoefficient();
 
-    return;
+    int lastPopSize = Population.state;
+    
+    Population.state = Population.state * exp(Population.growth * Game.deltaTime);
+    Population.size = trunc(Population.state);
+        
+    int popDelta =  Population.size - lastPopSize;
+
+    //change amount of population acordingly
+    if(popDelta > 0)
+    {
+        for(int i = 0; i < popDelta; i++)
+        {
+            Person_create();
+        }
+    }
+    else if(popDelta < 0)
+    {
+        for(int i = 0; i < abs(popDelta); i++)
+        {
+            Person_kill(randomNumber(0, Population.size - 1 - i));
+        }        
+    }
 }
 
-//Exponential growth function
-void growPopulation_Exp(Population *population){
+double growthCoefficient(void){
 
-    population->state = population->state * pow(e, population->growth * Game.deltaTime);
-    population->size = floor(population->state);
+    if(Population.averageHappiness > 80.0)
+    {
+        return 1;
+    }
+    else if(Population.averageHappiness < 0.0)
+    {
+        return -1;
+    }
+    else
+    {
+        return 0.025 * Population.averageHappiness - 1;
+    }
+}
 
-    return;
+void populationEat(){
+    int places[Population.size];
+
+    for(int i = 0; i < Population.size; i++)
+    {
+        places[i] = i;        
+    }
+
+    int feed = -1;
+
+    for(int i = 0; i < Population.size; i++)
+    {
+        int temp = -1;
+
+        feed = randomNumber(0, Population.size - 1 - i);
+
+        Person_eat(places[feed]);
+
+        temp = places[Population.size - 1 - i];
+        places[Population.size - 1 - i] = places[feed];
+        places[feed] = temp;
+    }
 }

@@ -2,7 +2,14 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 
-#include "../game/data.h"
+
+#include "../config.h"
+#include "../main.h"
+#include "../components/population.h"
+#include "../components/resources.h"
+
+#include "../engine.h"
+
 
 int RenderText(SDL_Renderer *rend, char *label, TTF_Font *font, SDL_Color color, int xPos, int yPos);
 int row(int);
@@ -13,30 +20,35 @@ int Draw(){
 
     char *buffer = malloc(40 * sizeof(char));
 
-    sprintf(buffer, "population1: %li", Population1.size);
-    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(0));
+    sprintf(buffer, "population: %.2f", Population.state);
+    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(0)); 
 
-    sprintf(buffer, "population2: %li", Population2.size);
-    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorRed, SCREEN_PADDING, row(1));
+    sprintf(buffer, "years: %i", Game.years);
+    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, 1180, row(0));
 
-    sprintf(buffer, "fps: %i", (int) Game.fps);
-    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, 1180, row(0));    
+    sprintf(buffer, "growth: %f", Population.growth * YEAR_TIME);
+    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(1));
 
-    sprintf(buffer, "years: %i", (int) timespecToInt_Sec(Game.duration));
+    sprintf(buffer, "food: %.2f", resourceState(food));
     RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(2));
 
-    sprintf(buffer, "growth1: %f", Population1.growth);
+    sprintf(buffer, "wood: %.2f", resourceState(wood));
     RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(3));
 
-    sprintf(buffer, "growth2: %f", Population2.growth);
-    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorRed, SCREEN_PADDING, row(4));
+    sprintf(buffer, "stone: %.2f", resourceState(stone));
+    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(4));
+
+    sprintf(buffer, "average hunger: %.2f", Population.averageHunger);
+    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(5));
+
+    sprintf(buffer, "average happinness: %.2f", Population.averageHappiness);
+    RenderText(Game.renderer, buffer, Game.fontRoboto, Game.colorWite, SCREEN_PADDING, row(6));
 
     free(buffer);
 
     RenderGraph(Game.renderer, MainGraph, Game.colorWite);
 
     RenderGraphData(Game.renderer, MainGraph, Data1, Game.colorWite);    
-    RenderGraphData(Game.renderer, MainGraph, Data2, Game.colorRed);
 
     SDL_RenderPresent(Game.renderer);
 

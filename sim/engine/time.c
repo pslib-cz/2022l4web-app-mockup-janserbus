@@ -1,23 +1,18 @@
-#include <time.h>
-#include <math.h>
-#include <stdlib.h>
+
 #include <stdbool.h>
-#include <string.h>
 
 #include "time.h"
-#include "data.h"
+#include "core.h"
 
-Timer Timer_frec10;
+Timer Timer_graph;
+Timer Timer_frec1;
 
 //Timer functions
-int Init_Timer(Timer *timer, int frequency){
+int Init_Timer(Timer *timer, float frequency){
+
     double time = 1.0 / frequency;
 
-    long sec =  round(time);
-    long nsec =  round((time - sec) * 1000);
-
-    timer->waitTime.tv_sec = sec;
-    timer->waitTime.tv_nsec = nsec * 1000000;
+    timer->waitTime = timeToTimespec(time);
 
     timer->nextFire = timespecAdd(Game.duration, timer->waitTime);
 
@@ -105,4 +100,13 @@ void doubleToTimespec(timespec *location, double source){
     location->tv_nsec= round((source - location->tv_sec) * 1000) * 1000000;
 
     return;
+}
+
+timespec timeToTimespec(double time){
+    timespec Time;
+
+    Time.tv_sec = (int) time;
+    Time.tv_nsec = round((time - Time.tv_sec) * 1000000000);
+
+    return Time;
 }

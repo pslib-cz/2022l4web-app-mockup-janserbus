@@ -5,19 +5,123 @@
 #include <time.h>
 #include <errno.h>
 
-#include "game/time.h"
-#include "game/data.h"
-#include "game/processes.h"
+#include "config.h"
+#include "main.h"
+#include "engine.h"
+#include "components.h"
 
-int QuitGame(void);
+int Engine_init();
+int QuitGame();
 int Processing();
-
 
 int main(void){
 
+    SDL_SetMainReady();
+
+    Engine_init();
+
+    timespec deltaStart, deltaStop, frameCapStart, frameCapStop; 
+
+    timespec_get(&deltaStart, TIME_UTC);
+
+    while(Game.running)
+    {   
+        timespec_get(&frameCapStart, TIME_UTC);
+
+        Input(); 
+
+        Update();
+
+        if(Draw() != 0)
+        {
+            QuitGame();
+
+            return 1;
+        }
+
+        Processing();
+
+        updateTimer(&Timer_graph);
+        updateTimer(&Timer_frec1);
+        
+        timespec_get(&frameCapStop, TIME_UTC);
+
+        //delay to keep frame cap
+        int wait = (1.0 / FRAME_CAP - deltaTime(frameCapStart, frameCapStop)) * 1000;
+        if(wait > 0)
+        {
+            SDL_Delay(wait);
+        }
+
+        //update game data for next frame
+        Game_update(&deltaStart, &deltaStop);        
+    }
+    
+    QuitGame();
+
+    return 0;
+}
+
+int QuitGame(void){
+
+    List_destroy(&Processes);
+    clearPopulation();
+    
+    free(Data1.points);
+
+    SDL_DestroyRenderer(Game.renderer);
+    SDL_DestroyWindow(Game.window);    
+    TTF_CloseFont(Game.fontRoboto);
+    TTF_Quit();
+    SDL_Quit();
+
+    return 0;
+}
+
+int Processing(){
+
+    for(int i = 0; i < Processes.rear + 1; i++)
+    {
+        Process *process = Processes.element[i];
+
+        switch(process->type)
+        {
+            case(transition):
+                if(process->transition.transitionType == linear)
+                {
+                    //return transition value
+                    *process->transition.location += (Game.deltaTime / process->transition.duration) * (process->transition.endPoint - process->transition.startPoint);
+
+                    //if transition ended terminate process
+                    if(process->transition.endPoint > process->transition.startPoint && *process->transition.location >= process->transition.endPoint)
+                    {
+                        *process->transition.location = process->transition.endPoint;
+                        List_remove(&Processes, i);
+                    }
+                    else if(process->transition.endPoint < process->transition.startPoint && *process->transition.location <= process->transition.endPoint)
+                    {
+                        *process->transition.location = process->transition.endPoint;
+                        List_remove(&Processes, i);
+                    }
+                }
+                else if(process->transition.transitionType == smooth)
+                {
+                    List_remove(&Processes, i);
+                }
+
+            break;
+        }
+    };
+
+    return 0;
+}
+
+int Engine_init(){
+
     errno = 0;
 
-    SDL_SetMainReady();
+    //seed for random number generation
+    srand(time(0));
 
     //initialzing SDL and TTF libraries
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS) != 0){
@@ -33,111 +137,21 @@ int main(void){
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
     //init game data structures
-    if(Init_GameData() != 0){
+    if(Game_init() != 0){
         SDL_Quit();
         TTF_Quit();
     }      
 
-    initQueue(&Processes);
+    Processes = List_create(4);
 
-    //Timer struct initialization
-    Init_Timer(&Timer_frec10, 1);
+    Init_Timer(&Timer_graph, 0.1 / YEAR_TIME);
+    Init_Timer(&Timer_frec1, 1);
 
-    Init_Population(&Population1, "pop1", 100, 0.05);    
-    Init_Population(&Population2, "pop2", 10, 0.1);    
+    initPopulation();    
 
-    Init_Graph(&MainGraph, 650, 480, SCREEN_PADDING, 10, 0.5);
+    initReasources();
 
-    timespec deltaStart, deltaStop; 
-
-    timespec_get(&deltaStart, TIME_UTC);
-
-    while(Game.running)
-    {   
-        Input(); 
-
-        Update();
-
-        if(Draw() != 0)
-        {
-            QuitGame();
-
-            return 1;
-        }
-
-        //mesure and set time
-        timespec_get(&deltaStop, TIME_UTC);
-        Game.deltaTime = deltaTime(deltaStart, deltaStop);
-        Game.duration = timespecDiff(deltaStop, Game.start);
-        timespec_get(&deltaStart, TIME_UTC);
-
-        Processing();
-
-        updateTimer(&Timer_frec10);
-
-        Game.deltaDuration += Game.deltaTime;
-        Game.fps = 1 / Game.deltaTime;
-    }
-    
-    QuitGame();
-
-    return 0;
-}
-
-int QuitGame(void){
-
-    //clearQueue(&Processes);
-    
-    free(Data1.points);
-    free(Data2.points);
-
-    SDL_DestroyRenderer(Game.renderer);
-    SDL_DestroyWindow(Game.window);    
-    TTF_CloseFont(Game.fontRoboto);
-    TTF_Quit();
-    SDL_Quit();
-
-    return 0;
-}
-
-int Processing(){
-
-    Process *process = NULL;
-    int processPlace = 0;
-
-
-    while(pollProcess(&process, &processPlace) == 0)
-    {        
-        switch(process->type)
-        {
-            case(transition):
-                if(process->transition.transitionType == linear)
-                {
-                    //return transition value
-                    *process->transition.location += (Game.deltaTime / process->transition.duration) * (process->transition.endPoint - process->transition.startPoint);
-
-                    //if transition ended terminate process
-                    if(process->transition.endPoint > process->transition.startPoint && *process->transition.location >= process->transition.endPoint)
-                    {
-                        *process->transition.location = process->transition.endPoint;
-                        deQueue(&Processes ,processPlace);
-                    }
-                    else if(process->transition.endPoint < process->transition.startPoint && *process->transition.location <= process->transition.endPoint)
-                    {
-                        *process->transition.location = process->transition.endPoint;
-                        deQueue(&Processes ,processPlace);
-                    }
-                }
-                else if(process->transition.transitionType == smooth)
-                {
-                    destroyProcess(processPlace);
-                }
-
-            break;
-        }
-    };
-
-    tidyQueue(&Processes);
+    Init_Graph(&MainGraph, 200, SCREEN_WIDTH - SCREEN_PADDING - 500, SCREEN_PADDING, 0.25 / YEAR_TIME, 0.1, 0, 0);
 
     return 0;
 }
