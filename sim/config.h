@@ -10,6 +10,8 @@
 #define FONT_SIZE 24
 #define LINE_HEIGHT 20
 
+#define GRAPH_SAMPLING 1 //amount of samples per second
+
 #define CAP_UNLIMITED 2147483647
 
 
@@ -21,10 +23,10 @@
 #define HUNGER_RATE 1 // amount of hunger dropped per second
 
 
-#define INIT_HAPPINESS 40
-#define INIT_HUNGER 40
+#define INIT_HAPPINESS 90
+#define INIT_HUNGER 90
 
-#define FOOD_RATE 0
+#define FOOD_RATE 2
 
 //resource settings
 #define AMOUNT_OF_REASOURCE_TYPES 3

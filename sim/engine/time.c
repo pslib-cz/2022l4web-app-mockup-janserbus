@@ -4,7 +4,7 @@
 #include "time.h"
 #include "core.h"
 
-Timer Timer_graph;
+Timer Timer_graph_sampling;
 Timer Timer_frec1;
 
 //Timer functions

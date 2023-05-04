@@ -12,10 +12,6 @@ void populationEat();
 
 int Update(){
 
-    printPopulationData();
-
-    updatePopulation();
-
     createResource(food, FOOD_RATE * Game.deltaTime);
 
     populationEat();
@@ -27,7 +23,11 @@ int Update(){
 
     growPopulation();    
 
-    if(Timer_graph.fire)
+    printPopulationData();
+
+    updatePopulation();
+
+    if(Timer_graph_sampling.fire)
     {
         addDataPoint(&Data1, timespecToDouble(Game.duration), Population.state);
     }

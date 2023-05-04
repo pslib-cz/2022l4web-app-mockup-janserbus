@@ -49,7 +49,20 @@ void updatePopulation(void){
 
 void printPopulationData(void){
 
-    FILE *outfile = fopen("data.txt", "w");
+    static bool opend = false;
+
+    FILE *outfile;
+
+    if(opend)
+    {
+        outfile = fopen("data.txt", "a");
+    }
+    else
+    {
+        opend = true;
+        outfile = fopen("data.txt", "w");
+    }
+
 
     fprintf(outfile, "\n\n\nFrame: %li\n", Game.frames);
     fprintf(outfile, "Delta Time: %.2f\n", Game.deltaTime);
@@ -75,6 +88,20 @@ int clearPopulation(void){
 }
 
 //Person struct functions
+void Person_create(void){
+
+    person *Person = malloc(sizeof(person));
+
+    Person->happiness = INIT_HAPPINESS;
+    Person->hunger = INIT_HUNGER;
+    Person->housing = false;
+    Person->job = none;
+
+    List_append(&Pop, Person);
+
+    return;
+}
+
 person *Person_get(unsigned int place){
     
     //return if outside of queue
@@ -90,18 +117,6 @@ person *Person_get(unsigned int place){
     return pop;
 }
 
-void Person_create(void){
-
-    person *Person = malloc(sizeof(person));
-
-    Person->happiness = INIT_HAPPINESS;
-    Person->hunger = INIT_HUNGER;
-    Person->housing = false;
-
-    List_append(&Pop, Person);
-
-    return;
-}
 
 //kills one person
 void Person_kill(unsigned int place){

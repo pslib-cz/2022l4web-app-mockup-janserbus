@@ -29,5 +29,5 @@ double deltaTime(timespec s, timespec e);
 int Init_Timer(Timer *timer, float frequency);
 void updateTimer(Timer *timer);
 
-extern Timer Timer_graph;
+extern Timer Timer_graph_sampling;
 extern Timer Timer_frec1;

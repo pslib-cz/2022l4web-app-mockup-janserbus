@@ -41,7 +41,7 @@ int main(void){
 
         Processing();
 
-        updateTimer(&Timer_graph);
+        updateTimer(&Timer_graph_sampling);
         updateTimer(&Timer_frec1);
         
         timespec_get(&frameCapStop, TIME_UTC);
@@ -144,7 +144,7 @@ int Engine_init(){
 
     Processes = List_create(4);
 
-    Init_Timer(&Timer_graph, 0.1 / YEAR_TIME);
+    Init_Timer(&Timer_graph_sampling, GRAPH_SAMPLING);
     Init_Timer(&Timer_frec1, 1);
 
     initPopulation();    
