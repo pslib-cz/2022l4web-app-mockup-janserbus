@@ -29,7 +29,7 @@ int Update(){
 
     if(Timer_graph_sampling.fire)
     {
-        addDataPoint(&Data1, timespecToDouble(Game.duration), Population.state);
+        Data_addPoint(&PopulationData, timespecToDouble(Game.duration), Population.state);
     }
 
     return 0;

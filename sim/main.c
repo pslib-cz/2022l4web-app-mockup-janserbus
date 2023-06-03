@@ -67,7 +67,7 @@ int QuitGame(void){
     List_destroy(&Processes);
     clearPopulation();
     
-    free(Data1.points);
+    free(PopulationData.points);
 
     SDL_DestroyRenderer(Game.renderer);
     SDL_DestroyWindow(Game.window);    
@@ -151,7 +151,12 @@ int Engine_init(){
 
     initReasources();
 
-    Init_Graph(&MainGraph, 200, SCREEN_WIDTH - SCREEN_PADDING - 500, SCREEN_PADDING, 0.25 / YEAR_TIME, 0.1, 0, 0);
+    SDL_Point origin;
+
+    origin.x = SCREEN_WIDTH - SCREEN_PADDING - 500;
+    origin.y = SCREEN_PADDING;
+
+    Graph_init(&PopulationGraph, origin, 350, 1, 0.1, 0, 0, "sec", "pop size");
 
     return 0;
 }

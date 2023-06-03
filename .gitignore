@@ -4,3 +4,4 @@ sim/test
 sim/population.code-workspace
 sim/*.o
 sim/data.txt
+list.cpp

@@ -2,25 +2,40 @@
 
 #include <SDL2/SDL.h>
 
-typedef struct{
-    SDL_Point *points;
+typedef struct data{
+    SDL_FPoint *points;
     int size;
-}GraphData;
+}data;
 
-typedef struct{
-    SDL_Rect position;
+typedef struct graph{
+    SDL_Point origin;
+    int size;
+    float ofsetXinit;
+    float ofsetYinit;
+    float scaleXinit;
+    float scaleYinit;
     float scaleX;
     float scaleY;    
     float ofsetX;
     float ofsetY;
-}Graph;
+    char lableX[20];
+    char lableY[20];
+}graph;
 
 
-void Init_Graph(Graph *graph, int size, int posX, int posY, float scaleX, float scaleY, float ofsetX, float ofsetY);
-void addDataPoint(GraphData *data, float pointX, float pointY);
-void RenderGraph(SDL_Renderer *rend, Graph graph, SDL_Color color);
-void RenderGraphData(SDL_Renderer *rend, Graph graph, GraphData data, SDL_Color color);
+void Graph_init(graph *Graph, SDL_Point origin, int size, float scaleX, float scaleY, float ofsetX, float ofsetY, char *lableX, char *lableY);
+
+void Graph_update(graph *Graph, SDL_Point origin, int size, float scaleX, float scaleY, float ofsetX, float ofsetY);
+void Graph_updateScale(graph *Graph, float scaleX, float scaleY);
+void Graph_updateOfset(graph *Graph, float ofsetX, float ofsetY);
+void Graph_updateOrigin(graph *Graph, SDL_Point origin);
+void Graph_updateSize(graph *Graph, int size);
+
+void Graph_render(SDL_Renderer *rend, graph Graph, SDL_Color color);
+
+void Data_addPoint(data *data, double pointX, double pointY);
+void RenderGraphData(SDL_Renderer *rend, graph graph, data data, SDL_Color color);
 
 
-extern Graph MainGraph;
-extern GraphData Data1;
+extern graph PopulationGraph;
+extern data PopulationData;

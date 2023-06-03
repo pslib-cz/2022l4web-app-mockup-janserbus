@@ -46,9 +46,9 @@ int Draw(){
 
     free(buffer);
 
-    RenderGraph(Game.renderer, MainGraph, Game.colorWite);
+    Graph_render(Game.renderer, PopulationGraph, Game.colorWite);
 
-    RenderGraphData(Game.renderer, MainGraph, Data1, Game.colorWite);    
+    RenderGraphData(Game.renderer, PopulationGraph, PopulationData, Game.colorWite);    
 
     SDL_RenderPresent(Game.renderer);
 
